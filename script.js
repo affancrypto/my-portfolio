@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initTypingEffect();
   initProjectDetails();
-  initContactForm();
+  init();
 });
 
 /* ---------------------------------------------------------
@@ -260,27 +260,45 @@ function initContactForm() {
     });
   });
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    if (!validate()) {
-      status.textContent = 'Please fix the highlighted fields.';
-      status.style.color = '#e2645c';
-      return;
-    }
+  if (!validate()) {
+    status.textContent = 'Please fix the highlighted fields.';
+    status.style.color = '#e2645c';
+    return;
+  }
 
-    const submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-    status.style.color = '';
-    status.textContent = '';
+  const submitBtn = form.querySelector('button[type="submit"]');
 
-    // No backend is connected — this simulates a send for front-end demo purposes.
-    setTimeout(() => {
-      status.textContent = "Thanks! Your message has been received — I'll get back to you soon.";
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+  status.textContent = '';
+  status.style.color = '';
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      status.textContent = "Thanks! Your message has been sent successfully.";
+      status.style.color = '';
       form.reset();
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Message';
-    }, 900);
-  });
+    } else {
+      status.textContent = "Something went wrong. Please try again.";
+      status.style.color = '#e2645c';
+    }
+  } catch (error) {
+    status.textContent = "Something went wrong. Please try again.";
+    status.style.color = '#e2645c';
+  }
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Send Message';
+});
 }
