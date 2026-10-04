@@ -201,7 +201,7 @@ function initProjectDetails() {
 }
 
 /* ---------------------------------------------------------
-   7. Contact form validation + fake submit (no backend)
+   7. Contact form validation + submit)
 --------------------------------------------------------- */
 function initContactForm() {
   const form = document.getElementById('contactForm');
@@ -302,3 +302,4 @@ function initContactForm() {
   submitBtn.textContent = 'Send Message';
 });
 }
+initContactForm();
