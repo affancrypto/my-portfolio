@@ -803,3 +803,142 @@ input, textarea { font: inherit; color: inherit; }
   .hero-actions .btn { width: 100%; }
   .code-window { transform: none; }
 }
+
+
+/* ===== CONTACT 3D ANIMATED ORB ===== */
+
+.contact-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 320px;
+  margin-top: 25px;
+}
+
+.orb-scene {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 800px;
+  transform-style: preserve-3d;
+}
+
+.orb-core {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at 30% 25%,
+    #ffd28a,
+    #ffb454 35%,
+    #6a320b 75%,
+    #1b1009
+  );
+  box-shadow:
+    0 0 45px rgba(255, 180, 84, 0.3),
+    inset -12px -12px 25px rgba(0,0,0,0.6);
+  z-index: 2;
+  animation: orbFloat 5s ease-in-out infinite;
+}
+
+.orb-core span {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.orb-ring {
+  position: absolute;
+  width: 205px;
+  height: 205px;
+  border: 2px solid #ffb454;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255,180,84,0.3);
+}
+
+.ring-one {
+  animation: ringSpinOne 9s linear infinite;
+}
+
+.ring-two {
+  border-color: rgba(255,180,84,0.5);
+  animation: ringSpinTwo 12s linear infinite;
+}
+
+.orb-glow {
+  position: absolute;
+  width: 170px;
+  height: 45px;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(255,180,84,0.2);
+  filter: blur(25px);
+}
+
+.freelance-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 30px;
+  background: rgba(255,255,255,0.04);
+  color: #d5d5d5;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 12px #4ade80;
+  animation: statusPulse 2s infinite;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes ringSpinOne {
+  from { transform: rotateX(65deg) rotateZ(0deg); }
+  to { transform: rotateX(65deg) rotateZ(360deg); }
+}
+
+@keyframes ringSpinTwo {
+  from { transform: rotateY(65deg) rotateZ(0deg); }
+  to { transform: rotateY(65deg) rotateZ(360deg); }
+}
+
+@keyframes statusPulse {
+  50% { opacity: 0.4; }
+}
+
+@media (max-width: 768px) {
+  .contact-visual {
+    min-height: 260px;
+  }
+
+  .orb-scene {
+    width: 200px;
+    height: 220px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-core,
+  .orb-ring,
+  .status-dot {
+    animation: none;
+  }
+}
